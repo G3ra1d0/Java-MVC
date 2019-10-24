@@ -51,24 +51,21 @@ public class ProdutoControl {
 
     }
 
-    public ArrayList<ArrayList> recuperarTodos() {
+    public String[][] recuperarTodos() {
         ProdutoDAO DAO = new ProdutoDAO();
 
-        ArrayList<Produto> lista = new ArrayList<Produto>();
-        lista = (ArrayList<Produto>) DAO.selectAll();
+        ArrayList<Produto> lista = new ArrayList<>();
+        lista = DAO.selectAll();
 
-        ArrayList< ArrayList> matriz = new ArrayList< ArrayList>();
-        ArrayList< String> vetor = new ArrayList< String>();
+        String[][] matriz = new String[lista.size()][4];
 
         for (int i = 0; i < lista.size(); i++) {
-            vetor.set(i, String.valueOf(lista.get(i).getId()));
-            vetor.set(i, lista.get(i).getNome());
-            vetor.set(i, String.valueOf(lista.get(i).getPreco()));
-            vetor.set(i, lista.get(i).getUnidade());
-
-            matriz.add(vetor);
+            matriz[i][0] = String.valueOf( lista.get(i).getId() );
+            matriz[i][1] =  lista.get(i).getNome() ;
+            matriz[i][2] = String.valueOf( lista.get(i).getPreco() );
+            matriz[i][3] = lista.get(i).getUnidade();
         }
-
+        
         return matriz;
     }
 
@@ -76,12 +73,12 @@ public class ProdutoControl {
         ProdutoDAO DAO = new ProdutoDAO();
 
         boolean rs = DAO.delete(id);
-        
-        if(rs){
+
+        if (rs) {
             return "Deletado com Sucesso!";
-        }else{
+        } else {
             return "Erro ão deletar!";
         }
-            }
+    }
 
 }

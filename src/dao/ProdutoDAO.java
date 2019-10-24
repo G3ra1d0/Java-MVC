@@ -31,7 +31,7 @@ public class ProdutoDAO {
             pst.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Erro ão salvar o objeto: " + ex.getMessage());
+            System.err.println("Erro ao salvar o objeto: " + ex.getMessage());
         }
 
     }
@@ -52,7 +52,7 @@ public class ProdutoDAO {
             pst.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println("Erro ão atualizar o objeto: " + ex.getMessage());
+            System.err.println("Erro ao atualizar o objeto: " + ex.getMessage());
         }
 
     }
@@ -66,12 +66,12 @@ public class ProdutoDAO {
             PreparedStatement pst = conexao.prepareStatement(sql);
             pst.setInt(1, id);
             boolean rs = pst.execute();
-            
+
             return rs;
 
         } catch (SQLException ex) {
 
-            System.err.println("Erro ão excluir objeto do banco: " + ex.getMessage());
+            System.err.println("Erro ao excluir objeto do banco: " + ex.getMessage());
 
         }
         return false;
@@ -109,9 +109,9 @@ public class ProdutoDAO {
 
     }
 
-    public List<Produto> selectAll() {
+    public ArrayList<Produto> selectAll() {
         String sql = "select * from produto";
-        
+
         try {
             Connection conexao = FabricaConexao.GeraConexao();
 
@@ -119,16 +119,16 @@ public class ProdutoDAO {
 
             ResultSet Resultado = pst.executeQuery();
 
-            Produto prod = new Produto();
-            ArrayList<Produto> lista = new ArrayList<Produto>();
-           
-            while (Resultado.next());
-            {
+            ArrayList<Produto> lista = new ArrayList<>();
+
+            while (Resultado.next()) {
+                Produto prod = new Produto();
+
                 prod.setId(Resultado.getInt("id"));
                 prod.setNome(Resultado.getString("nome"));
                 prod.setPreco(Resultado.getDouble("preco"));
                 prod.setUnidade(Resultado.getString("unidade"));
-                
+
                 lista.add(prod);
             }
 
@@ -136,7 +136,7 @@ public class ProdutoDAO {
 
         } catch (SQLException ex) {
 
-            System.err.println("Erro ão recupera todos objeto do banco: " + ex.getMessage());
+            System.err.println("Erro ao recupera todos objeto do banco: " + ex.getMessage());
 
         }
         return null;
