@@ -11,27 +11,6 @@ public class Produto {
     private double preco;
     private String unidade;
 
-    public String[] VetorTo(String[] dados) {
-
-        dados[0] = String.valueOf(this.id);
-        dados[1] = this.nome;
-        dados[2] = String.valueOf(this.preco);
-        dados[3] = this.unidade;
-        
-        return dados;
-    }
-
-    public String[] toVetor() {
-        String vetor[] = new String[4];
-
-        vetor[0] = String.valueOf(getId());
-        vetor[1] = getNome();
-        vetor[2] = String.valueOf(getPreco());
-        vetor[3] = getUnidade();
-
-        return vetor;
-    }
-
     public int getId() {
         return id;
     }

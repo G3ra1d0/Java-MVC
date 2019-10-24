@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Produto;
 
 /**
@@ -38,10 +37,44 @@ public class ProdutoDAO {
     }
 
     public void update(Produto prod) {
+        Connection conexao = FabricaConexao.GeraConexao();
+
+        String sql = "update produto set nome = ? , preco = ?, unidade = ? where  id = ? ";
+
+        try {
+            PreparedStatement pst = conexao.prepareStatement(sql);
+
+            pst.setString(1, prod.getNome());
+            pst.setDouble(2, prod.getPreco());
+            pst.setString(3, prod.getUnidade());
+            pst.setInt(4, prod.getId());
+
+            pst.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ão atualizar o objeto: " + ex.getMessage());
+        }
 
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
+        String sql = "delete from produto where id = ?";
+
+        try {
+            Connection conexao = FabricaConexao.GeraConexao();
+
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setInt(1, id);
+            boolean rs = pst.execute();
+            
+            return rs;
+
+        } catch (SQLException ex) {
+
+            System.err.println("Erro ão excluir objeto do banco: " + ex.getMessage());
+
+        }
+        return false;
 
     }
 
@@ -77,6 +110,35 @@ public class ProdutoDAO {
     }
 
     public List<Produto> selectAll() {
+        String sql = "select * from produto";
+        
+        try {
+            Connection conexao = FabricaConexao.GeraConexao();
+
+            PreparedStatement pst = conexao.prepareStatement(sql);
+
+            ResultSet Resultado = pst.executeQuery();
+
+            Produto prod = new Produto();
+            ArrayList<Produto> lista = new ArrayList<Produto>();
+           
+            while (Resultado.next());
+            {
+                prod.setId(Resultado.getInt("id"));
+                prod.setNome(Resultado.getString("nome"));
+                prod.setPreco(Resultado.getDouble("preco"));
+                prod.setUnidade(Resultado.getString("unidade"));
+                
+                lista.add(prod);
+            }
+
+            return lista;
+
+        } catch (SQLException ex) {
+
+            System.err.println("Erro ão recupera todos objeto do banco: " + ex.getMessage());
+
+        }
         return null;
     }
 
