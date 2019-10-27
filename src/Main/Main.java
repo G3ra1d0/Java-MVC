@@ -40,8 +40,7 @@ public class Main {
 //        }
 
 ///// Delete
-        controle.excluir(4);
-        System.out.println("Deletado com sucesso!");
+//        System.out.println(controle.excluir(4));
 
     }
 
