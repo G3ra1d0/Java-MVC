@@ -89,17 +89,24 @@ public class ProdutoDAO {
             pst.setInt(1, id);
 
             ResultSet Resultado = pst.executeQuery();
-            Resultado.next();
-
             Produto prod = new Produto();
 
-            prod.setId(Resultado.getInt("id"));
-            prod.setNome(Resultado.getString("nome"));
-            prod.setPreco(Resultado.getDouble("preco"));
-            prod.setUnidade(Resultado.getString("unidade"));
+            if (Resultado.next()) {
 
-            return prod;
+                prod.setId(Resultado.getInt("id"));
+                prod.setNome(Resultado.getString("nome"));
+                prod.setPreco(Resultado.getDouble("preco"));
+                prod.setUnidade(Resultado.getString("unidade"));
 
+                return prod;
+            }else{
+                prod.setId(0);
+                prod.setNome("");
+                prod.setPreco(0);
+                prod.setUnidade("");
+
+                return prod;
+            }
         } catch (SQLException ex) {
 
             System.err.println("Erro ão recupera objeto do banco: " + ex.getMessage());
