@@ -115,6 +115,43 @@ public class ProdutoDAO {
         return null;
 
     }
+    
+    public Produto selectUltimo() {
+        String sql = "select * from produto where id = (select  MAX(id) from produto) ";
+        PreparedStatement pst;
+
+        try {
+            Connection conexao = FabricaConexao.GeraConexao();
+
+            pst = conexao.prepareStatement(sql);
+
+            ResultSet Resultado = pst.executeQuery();
+            Produto prod = new Produto();
+
+            if (Resultado.next()) {
+
+                prod.setId(Resultado.getInt("id"));
+                prod.setNome(Resultado.getString("nome"));
+                prod.setPreco(Resultado.getDouble("preco"));
+                prod.setUnidade(Resultado.getString("unidade"));
+
+                return prod;
+            }else{
+                prod.setId(0);
+                prod.setNome("");
+                prod.setPreco(0);
+                prod.setUnidade("");
+
+                return prod;
+            }
+        } catch (SQLException ex) {
+
+            System.err.println("Erro ão recupera objeto do banco: " + ex.getMessage());
+
+        }
+        return null;
+
+    }
 
     public ArrayList<Produto> selectAll() {
         String sql = "select * from produto";

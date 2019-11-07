@@ -5,29 +5,30 @@
  */
 package View;
 
-import control.ProdutoControl;
+import control.PessoaControl;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author g3ra1d0
  */
-public class ProdutoTela extends javax.swing.JFrame {
+public class PessoaTela extends javax.swing.JFrame {
 
     /**
      * Creates new form ProdutoTela
      */
-    public ProdutoTela() {
+    public PessoaTela() {
         initComponents();
-        this.dados = new String[4];
-        this.controle = new ProdutoControl();
+        this.dados = new String[5];
+        this.controle = new PessoaControl();
+        this.novo = false;
         Salvar.setEnabled(false);
         Cancelar.setEnabled(false);
         Excluir.setEnabled(false);
     }
     private String[] dados;
-    private ProdutoControl controle;
-
+    private PessoaControl controle;
+    private boolean novo;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,19 +47,21 @@ public class ProdutoTela extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        Codigo = new javax.swing.JTextField();
+        CPF = new javax.swing.JTextField();
         jButton10 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        Preco = new javax.swing.JTextField();
+        Sexo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         Nome = new javax.swing.JTextField();
-        Unidade = new javax.swing.JTextField();
+        Tipo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         Novo = new javax.swing.JButton();
         Salvar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         Excluir = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        Idade = new javax.swing.JTextField();
 
         jTextField4.setText("jTextField4");
 
@@ -66,11 +69,11 @@ public class ProdutoTela extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(100, 255, 100));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
 
         jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Codigo:");
+        jLabel1.setText("CPF");
 
         jButton1.setText("<<");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -120,14 +123,14 @@ public class ProdutoTela extends javax.swing.JFrame {
             }
         });
 
-        Codigo.addFocusListener(new java.awt.event.FocusAdapter() {
+        CPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                CodigoFocusLost(evt);
+                CPFFocusLost(evt);
             }
         });
-        Codigo.addActionListener(new java.awt.event.ActionListener() {
+        CPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CodigoActionPerformed(evt);
+                CPFActionPerformed(evt);
             }
         });
 
@@ -146,7 +149,7 @@ public class ProdutoTela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(4, 4, 4)
-                .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,24 +172,24 @@ public class ProdutoTela extends javax.swing.JFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton5)
-                    .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10))
                 .addContainerGap())
         );
 
-        jLabel2.setText("Preço:");
+        jLabel2.setText("Sexo:");
 
         jLabel3.setText("Nome:");
 
-        jLabel4.setText("Unidade");
+        jLabel4.setText("Tipo:");
 
-        Unidade.addActionListener(new java.awt.event.ActionListener() {
+        Tipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UnidadeActionPerformed(evt);
+                TipoActionPerformed(evt);
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(100, 255, 100));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
 
         Novo.setText("Novo");
         Novo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -248,6 +251,8 @@ public class ProdutoTela extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel5.setText("Idade:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,20 +260,25 @@ public class ProdutoTela extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Nome))
+                        .addComponent(Nome)
+                        .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(4, 4, 4)
-                        .addComponent(Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addGap(6, 6, 6)
+                        .addComponent(Idade, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Preco, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                        .addComponent(Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -283,8 +293,10 @@ public class ProdutoTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(Preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Unidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(Idade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -292,9 +304,9 @@ public class ProdutoTela extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UnidadeActionPerformed
+    private void TipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_UnidadeActionPerformed
+    }//GEN-LAST:event_TipoActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
@@ -316,16 +328,20 @@ public class ProdutoTela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void CodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CodigoFocusLost
-        ProdutoControl controle = new ProdutoControl();
-        String[] resultado = new String[4];
-        resultado = controle.recuperar(Integer.parseInt(Codigo.getText()));
-        if (Integer.parseInt(resultado[0]) == 0) {
+    private void CPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CPFFocusLost
+        PessoaControl controle = new PessoaControl();
+        String[] resultado = new String[5];
+        resultado = controle.recuperar(CPF.getText());
+        if (Integer.parseInt(resultado[4]) == 0) {
             JOptionPane.showMessageDialog(null, "Não foi possivel encontra esse codigo! Favor digite outro.");
         } else {
-            Nome.setText(resultado[1]);
-            Preco.setText(resultado[2]);
-            Unidade.setText(resultado[3]);
+            
+                   
+            Nome.setText(resultado[0]);
+            Sexo.setText(resultado[1]);
+            Idade.setText(resultado[2]);
+            Tipo.setText(resultado[3]);
+            CPF.setText(resultado[4]);
 
             Nome.requestFocus();
             /// Alter Botoes
@@ -334,63 +350,68 @@ public class ProdutoTela extends javax.swing.JFrame {
             Cancelar.setEnabled(true);
             Excluir.setEnabled(true);
         }
-    }//GEN-LAST:event_CodigoFocusLost
+    }//GEN-LAST:event_CPFFocusLost
 
-    private void CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CodigoActionPerformed
+    private void CPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CPFActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CodigoActionPerformed
+    }//GEN-LAST:event_CPFActionPerformed
 
     private void NovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NovoMouseClicked
-        Codigo.setEditable(false);
-        Codigo.setText("0");
+
+        CPF.setText("");
         Nome.setText("");
-        Unidade.setText("");
-        Preco.setText("");
-        Nome.requestFocus();
+        Tipo.setText("");
+        Sexo.setText("");
+        CPF.requestFocus();
         /// Ativa e desativa botoes
         Novo.setEnabled(false);
         Excluir.setEnabled(false);
         Salvar.setEnabled(true);
         Cancelar.setEnabled(true);
+        this.novo = true;
     }//GEN-LAST:event_NovoMouseClicked
 
     private void SalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalvarMouseClicked
-        if (Preco.getText().length() >= 3) {
-            this.dados[0] = Codigo.getText();
-            this.dados[1] = Nome.getText();
-            this.dados[2] = Preco.getText();
-            this.dados[3] = Unidade.getText();
-            this.controle.salvar(this.dados);
-            if (Integer.parseInt(Codigo.getText()) == 0) {
+        
+            this.dados[4] = CPF.getText();
+            this.dados[0] = Nome.getText();
+            this.dados[1] = Sexo.getText();
+            this.dados[3] = Tipo.getText();
+            this.dados[2] = Idade.getText();
+        
+            if(this.novo == true){
+                this.controle.insert(this.dados);
                 JOptionPane.showMessageDialog(null, "Inserido com Sucesso!");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
+                this.novo = false;
+            }else{
+                this.controle.atualizar(dados);
+                 JOptionPane.showMessageDialog(null, "Atualizado com Sucesso!");
 
             }
+            
             Nome.setText("");
-            Preco.setText("");
-            Unidade.setText("");
+            Sexo.setText("");
+            Tipo.setText("");
+            Idade.setText("");
             /// Ativa e desativa botoes
-            Codigo.setEditable(true);
+            CPF.setEditable(true);
             Novo.setEnabled(true);
             Excluir.setEnabled(true);
             Salvar.setEnabled(false);
             Cancelar.setEnabled(false);
-        } else {
-            JOptionPane.showMessageDialog(null, "Nome precisa ter tamanho maior que 3 digito e Preço precisa ter casas descimais!");
-        }
+      
     }//GEN-LAST:event_SalvarMouseClicked
 
     private void CancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarMouseClicked
 
         Nome.setText("");
-        Unidade.setText("");
-        Preco.setText("");
-        Codigo.setText("");
+        Tipo.setText("");
+        Sexo.setText("");
+        CPF.setText("");
+        Idade.setText("");
 
-        Codigo.setEditable(true);
-        Codigo.requestFocus();
+        CPF.setEditable(true);
+        CPF.requestFocus();
         /// Ativa e desativa botoes
         Novo.setEnabled(true);
         Excluir.setEnabled(true);
@@ -400,22 +421,30 @@ public class ProdutoTela extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarMouseClicked
 
     private void ExcluirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExcluirMouseClicked
-        JOptionPane.showMessageDialog(null, this.controle.excluir(Integer.parseInt(Codigo.getText())));
+        this.controle.excluir(CPF.getText());
+        JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
         Novo.setEnabled(true);
         Salvar.setEnabled(false);
         Cancelar.setEnabled(false);
         Excluir.setEnabled(false);
         Nome.setText("");
-        Preco.setText("");
-        Unidade.setText("");
+        Sexo.setText("");
+        Tipo.setText("");
+        Idade.setText("");
     }//GEN-LAST:event_ExcluirMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         String[][] matriz = this.controle.recuperarTodos();
-        Codigo.setText(matriz[0][0]);
-        Nome.setText(matriz[0][1]);
-        Preco.setText(matriz[0][2]);
-        Unidade.setText(matriz[0][3]);
+       
+            
+        Nome.setText(matriz[0][0]);
+        Sexo.setText(matriz[0][1]);
+        Idade.setText(matriz[0][2]);
+        Tipo.setText(matriz[0][3]);
+        CPF.setText(matriz[0][4]);
+        
+        this.novo = false;
+
         /// Ativa e desativa botoes
         Novo.setEnabled(false);
         Excluir.setEnabled(true);
@@ -425,11 +454,16 @@ public class ProdutoTela extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-         this.dados = this.controle.recuperaUltimor();
-        Codigo.setText( this.dados[0]);
-        Nome.setText( this.dados[1]);
-        Preco.setText(  this.dados[2]);
-        Unidade.setText(  this.dados[3]);
+        String[][] matriz = this.controle.recuperarTodos();
+           
+        this.novo = false;
+        
+        Nome.setText(matriz[matriz.length - 1][0]);
+        Sexo.setText(matriz[matriz.length - 1][1]);
+        Idade.setText(matriz[matriz.length - 1][2]);
+        Tipo.setText(matriz[matriz.length - 1][3]);
+        CPF.setText(matriz[matriz.length - 1][4]);
+
         /// Ativa e desativa botoes
         Novo.setEnabled(false);
         Excluir.setEnabled(true);
@@ -441,11 +475,13 @@ public class ProdutoTela extends javax.swing.JFrame {
         String[][] matriz = this.controle.recuperarTodos();
         int temp = 0;
         for (int i = 0; i < matriz.length; i++) {
-            if (matriz[i][0].equals(Codigo.getText())) {
-                Codigo.setText(matriz[i + 1][0]);
-                Nome.setText(matriz[i + 1][1]);
-                Preco.setText(matriz[i + 1][2]);
-                Unidade.setText(matriz[i + 1][3]);
+            if (matriz[i][0].equals(CPF.getText())) {
+                this.novo = false;
+                Nome.setText(matriz[i + 1][0]);
+                Sexo.setText(matriz[i + 1][1]);
+                Idade.setText(matriz[i + 1][2]);
+                Tipo.setText(matriz[i + 1][3]);
+                CPF.setText(matriz[i + 1][4]);
                 temp = 1;
                 i = matriz.length + 1;
             }
@@ -464,11 +500,13 @@ public class ProdutoTela extends javax.swing.JFrame {
         String[][] matriz = this.controle.recuperarTodos();
         int temp = 0;
         for (int i = 0; i < matriz.length; i++) {
-            if (matriz[i][0].equals(Codigo.getText())) {
-                Codigo.setText(matriz[i - 1][0]);
-                Nome.setText(matriz[i - 1][1]);
-                Preco.setText(matriz[i - 1][2]);
-                Unidade.setText(matriz[i - 1][3]);
+            if (matriz[i][0].equals(CPF.getText())) {
+                this.novo = false;
+                Nome.setText(matriz[i - 1][0]);
+                Sexo.setText(matriz[i - 1][1]);
+                Idade.setText(matriz[i - 1][2]);
+                Tipo.setText(matriz[i - 1][3]);
+                CPF.setText(matriz[i - 1][4]);
                 temp = 1;
                 i = matriz.length + 1;
             }
@@ -504,33 +542,35 @@ public class ProdutoTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProdutoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PessoaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProdutoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PessoaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProdutoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PessoaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProdutoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PessoaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProdutoTela().setVisible(true);
+                new PessoaTela().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CPF;
     private javax.swing.JButton Cancelar;
-    private javax.swing.JTextField Codigo;
     private javax.swing.JButton Excluir;
+    private javax.swing.JTextField Idade;
     private javax.swing.JTextField Nome;
     private javax.swing.JButton Novo;
-    private javax.swing.JTextField Preco;
     private javax.swing.JButton Salvar;
-    private javax.swing.JTextField Unidade;
+    private javax.swing.JTextField Sexo;
+    private javax.swing.JTextField Tipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
@@ -541,6 +581,7 @@ public class ProdutoTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField4;

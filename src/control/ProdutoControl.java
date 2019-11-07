@@ -52,6 +52,24 @@ public class ProdutoControl {
 
     }
 
+    
+    public String[] recuperaUltimor() {
+        String[] vetor = new String[4];
+        vetor[0] = "0";
+
+        ProdutoDAO DAO = new ProdutoDAO();
+
+        Produto p = DAO.selectUltimo();
+
+        vetor[0] = String.valueOf(p.getId());
+        vetor[1] = p.getNome();
+        vetor[2] = String.valueOf(p.getPreco());
+        vetor[3] = p.getUnidade();
+
+        return vetor;
+
+    }
+    
     public String[][] recuperarTodos() {
         ProdutoDAO DAO = new ProdutoDAO();
 

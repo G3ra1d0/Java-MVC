@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/View/PessoaTela.java</file>
             <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/Main/Main.java</file>
-            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/control/ProdutoControl.java</file>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/dao/ProdutoDAO.java</file>
             <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/View/ProdutoTela.java</file>
-            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/View/PrincipalTela.java</file>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/control/PessoaControl.java</file>
         </group>
     </open-files>
 </project-private>

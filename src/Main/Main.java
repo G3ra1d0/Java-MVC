@@ -1,5 +1,6 @@
 package Main;
 
+import View.PessoaTela;
 import View.ProdutoTela;
 import control.PessoaControl;
 import control.ProdutoControl;
@@ -16,9 +17,10 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        ProdutoTela tela = new ProdutoTela();
+        //ProdutoTela tela = new ProdutoTela();
+        //tela.setVisible(true);
+        PessoaTela tela = new PessoaTela();
         tela.setVisible(true);
-        
 //        String dados[] = new String[4];
 //        ProdutoControl controle = new ProdutoControl();
 
