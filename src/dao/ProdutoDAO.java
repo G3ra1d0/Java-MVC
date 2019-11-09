@@ -99,12 +99,11 @@ public class ProdutoDAO {
                 prod.setUnidade(Resultado.getString("unidade"));
 
                 return prod;
-            }else{
+            } else {
                 prod.setId(0);
                 prod.setNome("");
                 prod.setPreco(0);
                 prod.setUnidade("");
-
                 return prod;
             }
         } catch (SQLException ex) {
@@ -115,7 +114,55 @@ public class ProdutoDAO {
         return null;
 
     }
-    
+
+    public ArrayList<Produto> selectWhere(String[] valores) {
+
+        String sql = "select * from produto where ID = ?";
+        if (valores[0] == "Preco") {
+            sql = "select * from produto where preco = ?";
+        } else if (valores[0] == "Nome") {
+            sql = "select * from produto where nome = ? ";
+        } else if (valores[0] == "Unidade") {
+            sql = "select * from produto where unidade = ? ";
+
+        }
+
+        PreparedStatement pst;
+
+        try {
+            Connection conexao = FabricaConexao.GeraConexao();
+
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, valores[1]);
+
+            ResultSet Resultado = pst.executeQuery();
+            ArrayList<Produto> lista = new ArrayList<>();
+
+            if (Resultado.next()) {
+                do {
+                    Produto prod = new Produto();
+                    prod.setId(Resultado.getInt("id"));
+                    prod.setNome(Resultado.getString("nome"));
+                    prod.setPreco(Resultado.getDouble("preco"));
+                    prod.setUnidade(Resultado.getString("unidade"));
+
+                    lista.add(prod);
+                } while (Resultado.next());
+
+                return lista;
+
+            } else {
+                return lista;
+            }
+        } catch (SQLException ex) {
+
+            System.err.println("Erro ão recupera objeto do banco: " + ex.getMessage());
+
+        }
+        return null;
+
+    }
+
     public Produto selectUltimo() {
         String sql = "select * from produto where id = (select  MAX(id) from produto) ";
         PreparedStatement pst;
@@ -136,7 +183,7 @@ public class ProdutoDAO {
                 prod.setUnidade(Resultado.getString("unidade"));
 
                 return prod;
-            }else{
+            } else {
                 prod.setId(0);
                 prod.setNome("");
                 prod.setPreco(0);

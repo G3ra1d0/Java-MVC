@@ -52,7 +52,6 @@ public class ProdutoControl {
 
     }
 
-    
     public String[] recuperaUltimor() {
         String[] vetor = new String[4];
         vetor[0] = "0";
@@ -69,7 +68,30 @@ public class ProdutoControl {
         return vetor;
 
     }
-    
+
+    public ArrayList<String[]> recuperaWhere(String[] valores) {
+        String[] vetor = new String[4];
+
+        ProdutoDAO DAO = new ProdutoDAO();
+        ArrayList<Produto> lista = new ArrayList<>();
+        lista = DAO.selectWhere(valores);
+
+        ArrayList<String[]> matriz = new ArrayList<>();
+
+        for (int i = 0; i < lista.size(); i++) {
+            String[] temp = new String[4];
+            
+            temp[0] = String.valueOf(lista.get(i).getId());
+            temp[1] = lista.get(i).getNome();
+            temp[2] = String.valueOf(lista.get(i).getPreco());
+            temp[3] = lista.get(i).getUnidade();
+            
+            matriz.add(i,temp);
+        }
+
+        return matriz;
+    }
+
     public String[][] recuperarTodos() {
         ProdutoDAO DAO = new ProdutoDAO();
 

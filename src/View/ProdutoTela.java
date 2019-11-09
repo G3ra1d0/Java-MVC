@@ -297,7 +297,14 @@ public class ProdutoTela extends javax.swing.JFrame {
     }//GEN-LAST:event_UnidadeActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+       String[] vetor = new String[4];
+       PesquisaPessoa Pesquisa = new PesquisaPessoa(Codigo,Nome, Preco, Unidade);
+       Pesquisa.setVisible(true);
+       
+       Novo.setEnabled(false);
+       Salvar.setEnabled(true);
+        Cancelar.setEnabled(true);
+        Excluir.setEnabled(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
