@@ -1,9 +1,9 @@
 package Main;
 
-import View.PessoaTela;
+import View.PrincipalTela;
 import View.ProdutoTela;
-import control.PessoaControl;
 import control.ProdutoControl;
+import java.security.Principal;
 import java.util.ArrayList;
 
 /**
@@ -17,8 +17,10 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        ProdutoTela tela = new ProdutoTela();
+        PrincipalTela tela = new PrincipalTela();
         tela.setVisible(true);
+        
+        
 
 //        String dados[] = new String[4];
 //        ProdutoControl controle = new ProdutoControl();

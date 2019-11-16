@@ -39,7 +39,6 @@ public class ProdutoTela extends javax.swing.JFrame {
 
         jTextField4 = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
-        pessoa1 = new model.Pessoa();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -64,7 +63,7 @@ public class ProdutoTela extends javax.swing.JFrame {
 
         jButton9.setText("jButton9");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(100, 255, 100));
 
@@ -298,7 +297,7 @@ public class ProdutoTela extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
        String[] vetor = new String[4];
-       PesquisaPessoa Pesquisa = new PesquisaPessoa(Codigo,Nome, Preco, Unidade);
+       PesquisaProduto Pesquisa = new PesquisaProduto(Codigo,Nome, Preco, Unidade);
        Pesquisa.setVisible(true);
        
        Novo.setEnabled(false);
@@ -551,6 +550,5 @@ public class ProdutoTela extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField4;
-    private model.Pessoa pessoa1;
     // End of variables declaration//GEN-END:variables
 }
