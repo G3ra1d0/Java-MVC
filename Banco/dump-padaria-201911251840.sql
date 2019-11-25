@@ -52,15 +52,13 @@ CREATE TABLE `pedido` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cliente_id` int(11) NOT NULL,
   `vendedor_id` int(11) NOT NULL,
-  `produto_id` int(11) NOT NULL,
+  `data` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `pedido_FK` (`produto_id`),
   KEY `pedido_FK_1` (`cliente_id`),
   KEY `pedido_FK_2` (`vendedor_id`),
-  CONSTRAINT `pedido_FK` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`),
   CONSTRAINT `pedido_FK_1` FOREIGN KEY (`cliente_id`) REFERENCES `cliente` (`id`),
   CONSTRAINT `pedido_FK_2` FOREIGN KEY (`vendedor_id`) REFERENCES `vendedor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,34 +67,37 @@ CREATE TABLE `pedido` (
 
 LOCK TABLES `pedido` WRITE;
 /*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
-INSERT INTO `pedido` VALUES (1,1,2,6),(2,1,2,9),(3,3,2,6),(4,2,1,6),(5,2,1,7),(6,2,1,3);
+INSERT INTO `pedido` VALUES (2,1,2,'2019-11-20'),(3,3,2,'2019-11-21');
 /*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pessoa`
+-- Table structure for table `pedido_produtos`
 --
 
-DROP TABLE IF EXISTS `pessoa`;
+DROP TABLE IF EXISTS `pedido_produtos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pessoa` (
-  `nome` varchar(100) NOT NULL,
-  `sexo` varchar(10) NOT NULL,
-  `idade` int(11) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `cpf` varchar(11) NOT NULL
+CREATE TABLE `pedido_produtos` (
+  `pedido_id` int(11) NOT NULL,
+  `produto_id` int(11) NOT NULL,
+  `valorUnitario` double NOT NULL,
+  `quantidade` int(11) NOT NULL,
+  PRIMARY KEY (`pedido_id`,`produto_id`),
+  KEY `pedido_cliente_FK_1` (`produto_id`),
+  CONSTRAINT `pedido_cliente_FK_1` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`),
+  CONSTRAINT `pedido_produtos_FK` FOREIGN KEY (`pedido_id`) REFERENCES `pedido` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pessoa`
+-- Dumping data for table `pedido_produtos`
 --
 
-LOCK TABLES `pessoa` WRITE;
-/*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
-INSERT INTO `pessoa` VALUES ('Geraldo Vitor','Masculino',20,'Cliente','12345678902'),('Igor','Feminino',24,'Vendedor','15498763209'),('Matheus Viado','F',18,'Vendedor','999');
-/*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
+LOCK TABLES `pedido_produtos` WRITE;
+/*!40000 ALTER TABLE `pedido_produtos` DISABLE KEYS */;
+INSERT INTO `pedido_produtos` VALUES (2,1,0.4,5),(2,5,1.5,2),(2,6,7.5,1),(2,9,0.2,5),(3,1,0.4,5),(3,3,1.1,2),(3,7,4.99,1);
+/*!40000 ALTER TABLE `pedido_produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -113,7 +114,7 @@ CREATE TABLE `produto` (
   `unidade` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +123,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Pão',0000000000000000.40,'und'),(3,'Todinho',0000000000000001.10,'und'),(5,'Pão com Salame',0000000000000001.50,'und'),(6,'Refigerante',0000000000000007.50,'und'),(7,'Queijo',0000000000000004.99,'und'),(9,'Pão',0000000000000000.30,'und');
+INSERT INTO `produto` VALUES (1,'Pão',0000000000000000.40,'und'),(3,'Todinho',0000000000000001.10,'und'),(5,'Pão com Salame',0000000000000001.50,'und'),(6,'Refigerante',0000000000000007.50,'und'),(7,'Queijo',0000000000000004.99,'und'),(9,'Pão',0000000000000000.20,'und'),(10,'Pão com Ovo',0000000000000002.00,'und');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-16 15:48:17
+-- Dump completed on 2019-11-25 18:40:49
