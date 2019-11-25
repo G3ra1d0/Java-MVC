@@ -184,15 +184,18 @@ public class addProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String quant = new String();
+        quant = JOptionPane.showInputDialog("Quantidade desse roduto na compra?");
         DefaultTableModel TableModel = (DefaultTableModel) tabela.getModel();
         int linha = tabela.getSelectedRow();
         if (linha > -1) {
             
-            String[] dados = new String[4];
+            String[] dados = new String[5];
             dados[0] = (String) TableModel.getValueAt(linha, 0);
             dados[1] = (String) TableModel.getValueAt(linha, 1);
             dados[2] = (String) TableModel.getValueAt(linha, 2);
             dados[3] = (String) TableModel.getValueAt(linha, 2);
+            dados[4] = quant;
             
             this.modelo.addRow(dados);
             this.dispose();

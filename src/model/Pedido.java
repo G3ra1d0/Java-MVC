@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author g3ra1d0
@@ -13,7 +15,15 @@ public class Pedido {
     private int id;
     private int cliente_id;
     private int vendedor_id;
-    private int produto_id;
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public int getId() {
         return id;
@@ -37,14 +47,6 @@ public class Pedido {
 
     public void setVendedor_id(int vendedor_id) {
         this.vendedor_id = vendedor_id;
-    }
-
-    public int getProduto_id() {
-        return produto_id;
-    }
-
-    public void setProduto_id(int produto_id) {
-        this.produto_id = produto_id;
     }
     
     

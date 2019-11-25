@@ -7,6 +7,9 @@
             <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/dao/PedidoDAO.java</file>
             <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/View/PedidoTela.java</file>
             <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/Main/Main.java</file>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/dao/ProdutoDAO.java</file>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/control/ProdutoControl.java</file>
+            <file>file:/home/g3ra1d0/NetBeansProjects/Java-MVC/src/View/NovoPedidoTela.java</file>
         </group>
     </open-files>
 </project-private>

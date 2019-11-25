@@ -7,7 +7,10 @@ package View;
 
 import control.ClienteControl;
 import control.PedidoControle;
+import control.ProdutoControl;
 import control.VendedorControl;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,13 +25,27 @@ public class PedidoTela extends javax.swing.JFrame {
      */
     public PedidoTela() {
         initComponents();
-        this.cliente = new String[4];
-        this.vendedor = new String[4];
-        nomeCliente.setEditable(false);
-        nomeVendedor.setEditable(false);
+        this.controle = new PedidoControle();
+        cliente.setEditable(false);
+        vendedor.setEditable(false);
+        data.setEditable(false);
+        total.setEditable(false);
     }
-    private String[] cliente;
-    private String[] vendedor;
+    private PedidoControle controle;
+
+    private void totalPedido() {
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        double temp = 0.0;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            double valor = Float.parseFloat((String) tableModel.getValueAt(i, 3));
+            double quantidade = Float.parseFloat((String) tableModel.getValueAt(i, 4));
+            temp += valor * quantidade;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        total.setText(String.valueOf(df.format(temp)));
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,69 +56,115 @@ public class PedidoTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        codigo = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        vendedor = new javax.swing.JTextField();
+        cliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
         jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        nomeVendedor = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        nomeCliente = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        data = new javax.swing.JTextField();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jLabel5 = new javax.swing.JLabel();
+        total = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel1.setText("Codigo:");
 
-            },
-            new String [] {
-                "Codigo", "Nome", "Unidade", "Preço"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+        codigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codigoFocusLost(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Add Cliente");
+        jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Add Vendedor");
+        jLabel2.setText("Cliente");
+
+        jLabel3.setText("Vendedor");
+
+        cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clienteActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nome", "Unidade", "Valor", "Quantidade"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jToggleButton1.setText("Excluir Item");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton2.setText("Excluir Pedido");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton3.setText("Editar Item");
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Novo Pedido");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Cliente");
+        jLabel4.setText("Total");
 
-        jLabel3.setText("Vendedor:");
-
-        jButton3.setText("Confirma");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jToggleButton4.setText("Adiciona Item");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jToggleButton4ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Add Produto");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jLabel5.setText("Data");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,101 +173,198 @@ public class PedidoTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jToggleButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomeVendedor))
+                                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(nomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
-                        .addGap(17, 17, 17)))
+                                .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(33, 33, 33)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel5))))
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(total)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel1)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(nomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jToggleButton4)
+                    .addComponent(jToggleButton1)
+                    .addComponent(jToggleButton3))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton2)
+                    .addComponent(jButton2))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String idCliente = JOptionPane.showInputDialog("Digite o Codigo do Cliente da Venda");
-        ClienteControl cliControl = new ClienteControl();
-        this.cliente = cliControl.recuperar(Integer.parseInt(idCliente));
-        nomeCliente.setText(this.cliente[1]);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clienteActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel = (DefaultTableModel) jTable1.getModel();
-        addProduto tela = new addProduto(tableModel);
-        tela.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir o pedido todo ?");
+        if (opcao == 0) {
+            this.controle.deletePedido(Integer.parseInt(codigo.getText()));
+            JOptionPane.showMessageDialog(null, "Pedido Excluido do pedido com sucesso!");
+            codigo.setText("");
+        }
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRow() > -1) {
+            String[] vetor = new String[3];
+            vetor[0] = JOptionPane.showInputDialog("Quantas Unidades Foram?");
+            vetor[1] = codigo.getText();
+            vetor[2] = (String) tableModel.getValueAt(jTable1.getSelectedRow(), 0);
+            this.controle.updateProdutoPedido(vetor);
+            jButton1ActionPerformed(evt);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleciona uma linha para editar");
+        }
+
+//        for (int i = 0; i < jTable1.getRowCount(); i++) {
+//            String[] vetor = new String[3];
+//             vetor[0] = (String) tableModel.getValueAt(i, 4);
+//            vetor[1] = codigo.getText();
+//            vetor[2] = (String) tableModel.getValueAt(i, 0);
+//         
+//            this.controle.updateProdutoPedido(vetor);
+//            JOptionPane.showMessageDialog(null, "update pedido_produtos set quantidade = "+vetor[0]+" where"
+//                    + " pedido_id = "+vetor[1]+" and produto_id = "+vetor[2]);
+//            jButton1ActionPerformed(evt);
+//        }
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String idVendedor = JOptionPane.showInputDialog("Digite o Codigo do Vendeor da Venda");
-        VendedorControl vendControl = new VendedorControl();
-        this.vendedor = vendControl.recuperar(Integer.parseInt(idVendedor));
-        nomeVendedor.setText(this.vendedor[1]);
+        NovoPedidoTela tela = new NovoPedidoTela();
+        tela.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        PedidoControle control = new PedidoControle();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel = (DefaultTableModel) jTable1.getModel();
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            String[] vetor = new String[3];
-            vetor[0] = this.cliente[0];
-            vetor[1] = this.vendedor[0];
-            vetor[2] = (String) tableModel.getValueAt(i, 0);
-            control.insert(vetor);
+    private void codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codigoFocusLost
+//        String[] pedido = new String[4];
+//        pedido = this.controle.selectPedido(codigo.getText());
+//        if (Integer.parseInt(pedido[0]) < 1) {
+//            JOptionPane.showMessageDialog(null, "Desculpe pedido do codigo informado não existe!");
+//        } else {
+//            ClienteControl cliControl = new ClienteControl();
+//            cliente.setText(cliControl.recuperar(Integer.parseInt(pedido[1]))[1]);
+//            VendedorControl vedControl = new VendedorControl();
+//            vendedor.setText(vedControl.recuperar(Integer.parseInt(pedido[2]))[1]);
+//            data.setText(pedido[3]);
+//            ArrayList<String[]> array = new ArrayList<String[]>();
+//            array = this.controle.selectProduto(codigo.getText());
+//            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+//            for (int i = 0; i < array.size(); i++) {
+//                tableModel.addRow(array.get(i));
+//            }
+//        }
+    }//GEN-LAST:event_codigoFocusLost
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        if (jTable1.getSelectedRow() > -1) {
+            this.controle.deleteProdutoPedido(
+                    Integer.parseInt(codigo.getText()),
+                    Integer.parseInt((String) tableModel.getValueAt(jTable1.getSelectedRow(), 0)));
+
+            tableModel.removeRow(jTable1.getSelectedRow());
+            JOptionPane.showMessageDialog(null, "Produto Excluido do pedido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor seleciona uma linha da tabela para excluir");
         }
-        JOptionPane.showMessageDialog(null, "Inserido com sucesso");
-        this.cliente = new String[4];
-        this.vendedor = new String[4];
-        tableModel = new DefaultTableModel();
-        jTable1.setModel(tableModel);
-        nomeVendedor.setText("");
-        nomeCliente.setText("");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+        String codigoProduto = JOptionPane.showInputDialog("Digite o codigo do Produto:");
+        ProdutoControl prodControl = new ProdutoControl();
+        String[] vetor = new String[5];
+        vetor = prodControl.recuperar(Integer.parseInt(codigoProduto));
+        String quantidadeProduto = JOptionPane.showInputDialog("Quantidade desse item:");
+        vetor[1] = vetor[0];
+        vetor[0] = codigo.getText();
+        vetor[3] = quantidadeProduto;
+        this.controle.insertProduto(vetor);
+        jButton1ActionPerformed(evt);
+
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String[] pedido = new String[4];
+        pedido = this.controle.selectPedido(codigo.getText());
+        if (Integer.parseInt(pedido[0]) < 1) {
+            JOptionPane.showMessageDialog(null, "Desculpe pedido do codigo informado não existe!");
+        } else {
+            ClienteControl cliControl = new ClienteControl();
+            cliente.setText(cliControl.recuperar(Integer.parseInt(pedido[1]))[1]);
+            VendedorControl vedControl = new VendedorControl();
+            vendedor.setText(vedControl.recuperar(Integer.parseInt(pedido[2]))[1]);
+            data.setText(pedido[3]);
+            ArrayList<String[]> array = new ArrayList<String[]>();
+            array = this.controle.selectProduto(codigo.getText());
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+            tableModel.setRowCount(0);
+            for (int i = 0; i < array.size(); i++) {
+                tableModel.addRow(array.get(i));
+            }
+            this.totalPedido();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,17 +401,25 @@ public class PedidoTela extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cliente;
+    private javax.swing.JTextField codigo;
+    private javax.swing.JTextField data;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField nomeCliente;
-    private javax.swing.JTextField nomeVendedor;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JTextField total;
+    private javax.swing.JTextField vendedor;
     // End of variables declaration//GEN-END:variables
 }
